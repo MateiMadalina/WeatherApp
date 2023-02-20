@@ -23,3 +23,14 @@ textarea{resize: none;}
 body{
     font-family: 'Montserrat', sans-serif;
 }
+
+#pick_city {
+    text-align: center;
+    margin: 2em;
+    background-color: rgb(57, 173, 168);
+    padding: 1em;
+}
+
+input {
+    background-color: rgb(204, 177, 120);
+}
