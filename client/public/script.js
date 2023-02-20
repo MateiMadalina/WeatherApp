@@ -19,4 +19,27 @@ rootElement.insertAdjacentHTML(
     <label>Search City: 
         <input type="text">
     </label>
-</div>`);
+</div>`
+);
+
+const enteredCities = () => {
+  return cities
+    .map((city) => {
+      if (city.includes(inputElement.value)) {
+        return `<li>${city}</li>`;
+      };
+    })
+    .join("");
+};
+
+const inputElement = document.querySelector("input");
+inputElement.addEventListener("input", () => {
+  if (inputElement.value.length > 0) {
+    rootElement.insertAdjacentHTML(
+      "beforeend",
+      `<ul>
+      ${enteredCities()}
+      </ul>`
+    );
+  };
+});
