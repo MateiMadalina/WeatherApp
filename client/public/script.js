@@ -31,7 +31,7 @@ const autocompleteAndDisplay = (input, list) => {
       const section = document.querySelector('section');
       if (suggestions) {
           suggestions.parentNode.removeChild(suggestions);
-          section.remove();
+          if(section) section.remove();
       };
   };
 
@@ -69,10 +69,36 @@ const autocompleteAndDisplay = (input, list) => {
 };
 autocompleteAndDisplay(inputElement, cities);
 
+const getTime = (date) => {
+  let hours = new Date(date).getHours();
+  let hours24 = (hours + 24 - 2) % 24;
+  let minutes = new Date(date).getMinutes();
+  let ampm = hours24 >= 12 ? 'PM' : 'AM';
+  hours24 = hours24 % 12;
+  hours24 = hours24 ? hours24 : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  let strTime = hours24 + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
 const makePage = (data) => {
   rootElement.insertAdjacentHTML("beforeend", `
   <section>
       <h1>${data.location.name}</h1>
+      <h3>Current Weather</h3>
+      <p>${getTime(data.location.localtime)}</p>
+      <div id="temp">
+        <div>
+          <img src="${data.current.condition.icon}">
+          <p>${data.current.temp_c}&#8451;</p>
+        </div>
+        <div>
+          <p>${data.current.condition.text}</p>
+          <p>Feels like: ${data.current.feelslike_c}&#8451;</p> 
+          <p>Humidity: ${data.current.humidity}&#x25;</p>
+          <p>UV: ${data.current.uv}</p>
+        </div>
+      </div>
   </section>`)
 };
 
