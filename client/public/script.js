@@ -11,6 +11,16 @@ const cities = [
   "Warsaw",
   "Amsterdam",
 ];
+
+document.body.insertAdjacentHTML('afterbegin', `
+<div id="fav_btn">
+    <span>Add city to Favorites:</span>
+    <button>+</button>
+</div>
+<div id="fav_list">
+    <ul></ul>
+</div>`);
+
 const rootElement = document.querySelector("#root");
 
 rootElement.insertAdjacentHTML(
@@ -24,6 +34,16 @@ rootElement.insertAdjacentHTML(
 );
 
 const inputElement = document.getElementById('input');
+
+const addToFavorites = (name) => {
+    const ulElement = document.querySelector('#fav_list ul');
+    const favBtn = document.querySelector('button');
+    console.log(ulElement)
+    favBtn.addEventListener('click', function() {
+        ulElement.insertAdjacentHTML('beforeend', `
+        <li>${name}</li>`);
+    });
+};
 
 const autocompleteAndDisplay = (input, list) => {
   const closeList = () => {
@@ -61,6 +81,8 @@ const autocompleteAndDisplay = (input, list) => {
               let pictureUrl = `https://api.pexels.com/v1/search?query=${input.value}`
               fetchData(dataUrl);
               fetchPictureData(pictureUrl);
+
+              addToFavorites(input.value);
 
               closeList();
               });
