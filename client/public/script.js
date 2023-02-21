@@ -57,8 +57,10 @@ const autocompleteAndDisplay = (input, list) => {
               suggestion.addEventListener('click', function() {
               input.value = this.innerHTML;
 
-              let currentUrl = `http://api.weatherapi.com/v1/current.json?key=b54d788ad89546eeaf2133644232002&q=${input.value}&aqi=no`
-              fetchData(currentUrl);
+              let dataUrl = `http://api.weatherapi.com/v1/current.json?key=b54d788ad89546eeaf2133644232002&q=${input.value}&aqi=no`
+              let pictureUrl = `https://api.pexels.com/v1/search?query=${input.value}`
+              fetchData(dataUrl);
+              fetchPictureData(pictureUrl);
 
               closeList();
               });
@@ -68,6 +70,31 @@ const autocompleteAndDisplay = (input, list) => {
   });
 };
 autocompleteAndDisplay(inputElement, cities);
+
+const displayPicture = (data) => {
+    rootElement.style.backgroundImage = `url("${data.photos[0].src.portrait}")`
+};
+
+const fetchPictureData = async (url) => {
+    try {
+    const initialPictureData = await fetch(
+    url,
+    {
+      headers: {
+        Authorization: 'tCcD7GhjDDRcVKJG7QVLPq5K2dLWsIUgGnxYVSYY3GgU9xpCNvRUiuSw',
+      },
+    }
+  );
+    const pictureData = await initialPictureData.json();
+    displayPicture(pictureData);
+} catch (error) {
+    error = 'There was an error'
+    rootElement.insertAdjacentHTML("beforeend", `
+    <section>
+         <h1>${error}</h1>
+    </section>`);
+};
+};
 
 const getTime = (date) => {
   let hours = new Date(date).getHours();
@@ -79,7 +106,7 @@ const getTime = (date) => {
   minutes = minutes < 10 ? '0'+minutes : minutes;
   let strTime = hours24 + ':' + minutes + ' ' + ampm;
   return strTime;
-}
+};
 
 const makePage = (data) => {
   rootElement.insertAdjacentHTML("beforeend", `
