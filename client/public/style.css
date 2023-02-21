@@ -24,13 +24,35 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 
-#pick_city {
+form{
     text-align: center;
     margin: 2em;
-    background-color: rgb(57, 173, 168);
     padding: 1em;
 }
 
 input {
+    text-align: center;
+    font-size: 15px;
+    width: 200px;
+    padding: 0.4em;
     background-color: rgb(204, 177, 120);
+}
+
+#suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#suggestions div {
+    width: 200px;
+    cursor: pointer;
+    background-color: rgb(204, 177, 120);
+    font-size: inherit;
+    padding: 0.05em;
+}
+
+section {
+    text-align: center;
 }
