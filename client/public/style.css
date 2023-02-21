@@ -21,7 +21,11 @@ textarea{resize: none;}
 [readonly]{pointer-events: none; opacity: .4;}
 
 body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
 }
 
 form{
@@ -35,7 +39,10 @@ input {
     font-size: 15px;
     width: 200px;
     padding: 0.4em;
-    background-color: rgb(204, 177, 120);
+    /* background-color: rgb(204, 177, 120); */
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(36, 33, 33);
+    border-radius: 5px;
 }
 
 #suggestions {
@@ -48,11 +55,33 @@ input {
 #suggestions div {
     width: 200px;
     cursor: pointer;
-    background-color: rgb(204, 177, 120);
+    /* background-color: rgb(204, 177, 120); */
+    background-color: rgb(255, 255, 255);
     font-size: inherit;
     padding: 0.05em;
+    border-bottom: 2px solid rgb(36, 33, 33);
+    border-left: 2px solid rgb(36, 33, 33);
+    border-right: 2px solid rgb(36, 33, 33);
 }
 
 section {
     text-align: center;
+    /* background-color: rgba(194, 151, 99,0.7); */
+    background-color: rgba(255, 255, 254, 0.7);
+    margin: 2em 10em;
+    padding: 2em;
+    border-radius: 20px;
+}
+
+#root {
+    margin-top: 6em;
+    width: 70vw;
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+}
+
+label {
+    font-weight: 700;
 }
