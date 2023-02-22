@@ -1,10 +1,9 @@
-const key = "b54d788ad89546eeaf2133644232002";
 const cities = [
-  "Bucharest",
-  "Paris",
+  "Havana",
+  "Tokyo",
   "London",
   "Berlin",
-  "Praha",
+  "Prague",
   "Glasgow",
   "Budapest",
   "Vienna",
@@ -16,9 +15,6 @@ document.body.insertAdjacentHTML('afterbegin', `
 <div id="fav_btn">
     <span>Add city to Favorites:</span>
     <button>+</button>
-</div>
-<div id="fav_list">
-    <ul></ul>
 </div>`);
 
 const rootElement = document.querySelector("#root");
@@ -34,16 +30,6 @@ rootElement.insertAdjacentHTML(
 );
 
 const inputElement = document.getElementById('input');
-
-const addToFavorites = (name) => {
-    const ulElement = document.querySelector('#fav_list ul');
-    const favBtn = document.querySelector('button');
-    console.log(ulElement)
-    favBtn.addEventListener('click', function() {
-        ulElement.insertAdjacentHTML('beforeend', `
-        <li>${name}</li>`);
-    });
-};
 
 const autocompleteAndDisplay = (input, list) => {
   const closeList = () => {
@@ -82,8 +68,6 @@ const autocompleteAndDisplay = (input, list) => {
               fetchData(dataUrl);
               fetchPictureData(pictureUrl);
 
-              addToFavorites(input.value);
-
               closeList();
               });
               suggestions.appendChild(suggestion);
@@ -120,7 +104,7 @@ const fetchPictureData = async (url) => {
 
 const getTime = (date) => {
   let hours = new Date(date).getHours();
-  let hours24 = (hours + 24 - 2) % 24;
+  let hours24 = (hours + 24) % 24;
   let minutes = new Date(date).getMinutes();
   let ampm = hours24 >= 12 ? 'PM' : 'AM';
   hours24 = hours24 % 12;
