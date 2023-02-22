@@ -46,19 +46,18 @@ const autocompleteAndDisplay = (input, list) => {
         if (suggestions) {
           suggestions.parentNode.removeChild(suggestions);
           if (section) section.remove();
-        }
+        };
     };
     //Close the existing list if it is open
     closeList();
 
+    //Create a suggestions <div> and add it to the element containing the input field
+    const suggestions = document.createElement("div");
+    suggestions.setAttribute("id", "suggestions");
+    this.parentNode.appendChild(suggestions);
+
     if (favoriteCities && !this.value) {
       uniqueFavCities = [...new Set(favoriteCities)];
-      console.log(uniqueFavCities);
-
-      const suggestions = document.createElement("div");
-      suggestions.setAttribute("id", "suggestions");
-      this.parentNode.appendChild(suggestions);
-
       uniqueFavCities.map(listItem => {
         let suggestion = document.createElement("div");
         suggestion.innerHTML = listItem;
@@ -68,11 +67,6 @@ const autocompleteAndDisplay = (input, list) => {
 
     //If the input is empty, exit the function
     if (!this.value) return;
-
-    //Create a suggestions <div> and add it to the element containing the input field
-    const suggestions = document.createElement("div");
-    suggestions.setAttribute("id", "suggestions");
-    this.parentNode.appendChild(suggestions);
 
     //Iterate through all entries in the list and find matches
     list.map((listItem) => {
