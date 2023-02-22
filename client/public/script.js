@@ -21,7 +21,6 @@ document.body.insertAdjacentHTML(
 );
 
 const rootElement = document.querySelector("#root");
-const spinner = document.querySelector("#spinner");
 
 rootElement.insertAdjacentHTML(
   "afterbegin",
@@ -42,14 +41,13 @@ let uniqueFavCities = [];
 const autocompleteAndDisplay = (input, list) => {
   input.addEventListener("input", function () {
     const closeList = () => {
-      const suggestions = document.getElementById("suggestions");
-      const section = document.querySelector("section");
-      if (suggestions) {
-        suggestions.parentNode.removeChild(suggestions);
-        if (section) section.remove();
-      }
+        const suggestions = document.getElementById("suggestions");
+        const section = document.querySelector("section");
+        if (suggestions) {
+          suggestions.parentNode.removeChild(suggestions);
+          if (section) section.remove();
+        };
     };
-
     //Close the existing list if it is open
     closeList();
 
@@ -60,7 +58,7 @@ const autocompleteAndDisplay = (input, list) => {
 
     if (favoriteCities && !this.value) {
       uniqueFavCities = [...new Set(favoriteCities)];
-      uniqueFavCities.map((listItem) => {
+      uniqueFavCities.map(listItem => {
         let suggestion = document.createElement("div");
         suggestion.innerHTML = listItem;
         suggestions.appendChild(suggestion);
@@ -129,7 +127,7 @@ const getTime = (date) => {
   let minutes = new Date(date).getMinutes();
   let ampm = hours24 >= 12 ? "PM" : "AM";
   hours24 = hours24 % 12;
-  hours24 = hours24 ? hours24 : 12;
+  hours24 = hours24 ? hours24 : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? "0" + minutes : minutes;
   let strTime = hours24 + ":" + minutes + " " + ampm;
   return strTime;
@@ -161,11 +159,9 @@ const makePage = (data) => {
 
 const fetchData = async (url) => {
   try {
-    spinner.removeAttribute("hidden");
     const initialData = await fetch(url);
     const data = await initialData.json();
     makePage(data);
-    spinner.setAttribute("hidden", "");
   } catch (error) {
     error = "There was an error";
     rootElement.insertAdjacentHTML(
