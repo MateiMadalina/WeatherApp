@@ -22,12 +22,15 @@ textarea{resize: none;}
 
 body{
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     position: relative;
+    background-color: rgb(175, 230, 196);
+    background: -webkit-linear-gradient(to right, #d68952, #659999);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #d68952, #659999); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 form{
@@ -39,10 +42,10 @@ form{
 input {
     text-align: center;
     font-size: 15px;
+    font-weight: 600;
     width: 200px;
     padding: 0.4em;
-    /* background-color: rgb(204, 177, 120); */
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(123, 219, 214);
     border: 2px solid rgb(36, 33, 33);
     border-radius: 5px;
 }
@@ -57,10 +60,10 @@ input {
 #suggestions div {
     width: 200px;
     cursor: pointer;
-    /* background-color: rgb(204, 177, 120); */
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(123, 219, 214);
     font-size: inherit;
-    padding: 0.05em;
+    font-weight: 600;
+    padding: 0.1em;
     border-bottom: 2px solid rgb(36, 33, 33);
     border-left: 2px solid rgb(36, 33, 33);
     border-right: 2px solid rgb(36, 33, 33);
@@ -68,11 +71,14 @@ input {
 
 section {
     text-align: center;
-    /* background-color: rgba(194, 151, 99,0.7); */
-    background-color: rgba(255, 255, 254, 0.7);
+    background-color: rgba(123, 219, 214,0.8);
     margin: 2em 10em;
     padding: 2em;
     border-radius: 20px;
+}
+
+section p, #temp {
+    font-weight: 600;
 }
 
 #root {
@@ -86,6 +92,7 @@ section {
 
 label {
     font-weight: 700;
+    text-shadow: 1px 1px 10px rgb(123, 219, 214);
 }
 
 #fav_btn {
@@ -93,19 +100,20 @@ label {
     top: 2.5em;
 }
 
+#fav_btn span {
+    font-weight: 600;
+}
+
 button {
+    font-size: 18px;
+    font-weight: 600;
     width: 30px;
     height: 30px;
-    background-color: aqua;
+    background-color: rgb(123, 219, 214);
     border-radius: 5px;
     margin-left: 5px;
 }
 
-#fav_list {
-    background-color: aqua;
-    height: 20px;
-    width: 150px;
-    position: absolute;
-    right: 1em;
-    top: 7em;
+button:hover, #suggestions div:hover {
+    background-color: rgb(206, 165, 112);
 }
