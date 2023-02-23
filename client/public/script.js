@@ -19,7 +19,8 @@ document.body.insertAdjacentHTML(
   </div>`
 );
 
-const rootElement = document.querySelector("#root");
+const rootElement = document.getElementById("root");
+const spinner = document.getElementById("spinner");
 
 rootElement.insertAdjacentHTML(
   "afterbegin",
@@ -171,9 +172,11 @@ const fetchPictureData = async (url) => {
 
 const fetchData = async (url) => {
   try {
+    spinner.removeAttribute("hidden");
     const initialData = await fetch(url);
     const data = await initialData.json();
     displayData(data);
+    spinner.setAttribute("hidden", "");
   } catch (error) {
     catchError(error);
   };
