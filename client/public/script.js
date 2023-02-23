@@ -21,7 +21,6 @@ document.body.insertAdjacentHTML(
 );
 
 const rootElement = document.querySelector("#root");
-const spinner = document.querySelector("#spinner");
 
 rootElement.insertAdjacentHTML(
   "afterbegin",
@@ -39,6 +38,13 @@ const favBtn = document.querySelector("button");
 let favoriteCities = [];
 let uniqueFavCities = [];
 
+const getUrls = (name) => {
+  let dataUrl = `http://api.weatherapi.com/v1/current.json?key=b54d788ad89546eeaf2133644232002&q=${name}&aqi=no`;
+  let pictureUrl = `https://api.pexels.com/v1/search?query=${name}`;
+  fetchData(dataUrl);
+  fetchPictureData(pictureUrl);
+};
+
 const autocompleteAndDisplay = (input, list) => {
   input.addEventListener("input", function () {
     const closeList = () => {
@@ -47,9 +53,8 @@ const autocompleteAndDisplay = (input, list) => {
       if (suggestions) {
         suggestions.parentNode.removeChild(suggestions);
         if (section) section.remove();
-      }
+      };
     };
-
     //Close the existing list if it is open
     closeList();
 
@@ -58,11 +63,19 @@ const autocompleteAndDisplay = (input, list) => {
     suggestions.setAttribute("id", "suggestions");
     this.parentNode.appendChild(suggestions);
 
-    if (favoriteCities && !this.value) {
+    if (favoriteCities && !input.value) {
       uniqueFavCities = [...new Set(favoriteCities)];
+
       uniqueFavCities.map((listItem) => {
         let suggestion = document.createElement("div");
         suggestion.innerHTML = listItem;
+
+        suggestion.addEventListener("click", function () {
+          input.value = this.innerHTML;
+          getUrls(input.value);
+
+          closeList();
+        });
         suggestions.appendChild(suggestion);
       });
     };
@@ -78,11 +91,7 @@ const autocompleteAndDisplay = (input, list) => {
 
         suggestion.addEventListener("click", function () {
           input.value = this.innerHTML;
-
-          let dataUrl = `http://api.weatherapi.com/v1/current.json?key=b54d788ad89546eeaf2133644232002&q=${input.value}&aqi=no`;
-          let pictureUrl = `https://api.pexels.com/v1/search?query=${input.value}`;
-          fetchData(dataUrl);
-          fetchPictureData(pictureUrl);
+          getUrls(input.value);
 
           favBtn.addEventListener("click", function () {
             favoriteCities.push(input.value);
@@ -91,7 +100,7 @@ const autocompleteAndDisplay = (input, list) => {
           closeList();
         });
         suggestions.appendChild(suggestion);
-      }
+      };
     });
   });
 };
@@ -120,7 +129,7 @@ const fetchPictureData = async (url) => {
            <h1>${error}</h1>
       </section>`
     );
-  }
+  };
 };
 
 const getTime = (date) => {
@@ -129,7 +138,7 @@ const getTime = (date) => {
   let minutes = new Date(date).getMinutes();
   let ampm = hours24 >= 12 ? "PM" : "AM";
   hours24 = hours24 % 12;
-  hours24 = hours24 ? hours24 : 12;
+  hours24 = hours24 ? hours24 : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? "0" + minutes : minutes;
   let strTime = hours24 + ":" + minutes + " " + ampm;
   return strTime;
@@ -161,11 +170,9 @@ const makePage = (data) => {
 
 const fetchData = async (url) => {
   try {
-    spinner.removeAttribute("hidden");
     const initialData = await fetch(url);
     const data = await initialData.json();
     makePage(data);
-    spinner.setAttribute("hidden", "");
   } catch (error) {
     error = "There was an error";
     rootElement.insertAdjacentHTML(
@@ -175,5 +182,5 @@ const fetchData = async (url) => {
              <h1>${error}</h1>
         </section>`
     );
-  }
+  };
 };
