@@ -52,7 +52,10 @@ const autocompleteAndDisplay = (input, list) => {
       const section = document.querySelector("section");
       if (suggestions) {
         suggestions.parentNode.removeChild(suggestions);
-        if (section) section.remove();
+        if (section) {
+          section.remove();
+          rootElement.style.backgroundImage = "none";
+        };
       };
     };
     //Close the existing list if it is open
