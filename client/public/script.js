@@ -13,8 +13,7 @@ const cities = [
 
 document.body.insertAdjacentHTML(
   "afterbegin",
-  `
-  <div id="fav_btn">
+  `<div id="fav_btn">
       <span>Add city to Favorites:</span>
       <button>+</button>
   </div>`
@@ -33,9 +32,9 @@ rootElement.insertAdjacentHTML(
 );
 
 const inputElement = document.getElementById("input");
-const favBtn = document.querySelector("button");
+const favoriteBtn = document.querySelector("button");
 
-let favoriteCities = [];
+let citiesAddedToFavorites = [];
 let uniqueFavCities = [];
 
 const getUrls = (name) => {
@@ -46,7 +45,7 @@ const getUrls = (name) => {
 };
 
 const autocompleteAndDisplay = (input, list) => {
-  input.addEventListener("input", function () {
+  input.addEventListener("input", () => {
     const closeList = () => {
       const suggestions = document.getElementById("suggestions");
       const section = document.querySelector("section");
@@ -61,17 +60,17 @@ const autocompleteAndDisplay = (input, list) => {
     //Create a suggestions <div> and add it to the element containing the input field
     const suggestions = document.createElement("div");
     suggestions.setAttribute("id", "suggestions");
-    this.parentNode.appendChild(suggestions);
+    input.parentNode.appendChild(suggestions);
 
-    if (favoriteCities && !input.value) {
-      uniqueFavCities = [...new Set(favoriteCities)];
+    if (citiesAddedToFavorites && !input.value) {
+      uniqueFavCities = [...new Set(citiesAddedToFavorites)];
 
       uniqueFavCities.map((listItem) => {
         let suggestion = document.createElement("div");
         suggestion.innerHTML = listItem;
 
-        suggestion.addEventListener("click", function () {
-          input.value = this.innerHTML;
+        suggestion.addEventListener("click", () => {
+          input.value = suggestion.innerHTML;
           getUrls(input.value);
 
           closeList();
@@ -81,20 +80,20 @@ const autocompleteAndDisplay = (input, list) => {
     };
 
     //If the input is empty, exit the function
-    if (!this.value) return;
+    if (!input.value) return;
 
     //Iterate through all entries in the list and find matches
     list.map((listItem) => {
-      if (listItem.toUpperCase().includes(this.value.toUpperCase())) {
+      if (listItem.toUpperCase().includes(input.value.toUpperCase())) {
         let suggestion = document.createElement("div");
         suggestion.innerHTML = listItem;
 
-        suggestion.addEventListener("click", function () {
-          input.value = this.innerHTML;
+        suggestion.addEventListener("click", () => {
+          input.value = suggestion.innerHTML;
           getUrls(input.value);
 
-          favBtn.addEventListener("click", function () {
-            favoriteCities.push(input.value);
+          favoriteBtn.addEventListener("click", () => {
+            citiesAddedToFavorites.push(input.value);
           });
 
           closeList();
@@ -110,28 +109,6 @@ const displayPicture = (data) => {
   rootElement.style.backgroundImage = `url("${data.photos[0].src.landscape}")`;
 };
 
-const fetchPictureData = async (url) => {
-  try {
-    const initialPictureData = await fetch(url, {
-      headers: {
-        Authorization:
-          "tCcD7GhjDDRcVKJG7QVLPq5K2dLWsIUgGnxYVSYY3GgU9xpCNvRUiuSw",
-      },
-    });
-    const pictureData = await initialPictureData.json();
-    displayPicture(pictureData);
-  } catch (error) {
-    error = "There was an error";
-    rootElement.insertAdjacentHTML(
-      "beforeend",
-      `
-      <section>
-           <h1>${error}</h1>
-      </section>`
-    );
-  };
-};
-
 const getTime = (date) => {
   let hours = new Date(date).getHours();
   let hours24 = (hours + 24) % 24;
@@ -144,11 +121,10 @@ const getTime = (date) => {
   return strTime;
 };
 
-const makePage = (data) => {
+const displayData = (data) => {
   rootElement.insertAdjacentHTML(
     "beforeend",
-    `
-    <section>
+    `<section>
         <h1>${data.location.name}</h1>
         <h3>Current Weather</h3>
         <p>${getTime(data.location.localtime)}</p>
@@ -168,19 +144,37 @@ const makePage = (data) => {
   );
 };
 
+const catchError = (error) => {
+  error = "There was an error";
+  rootElement.insertAdjacentHTML(
+    "beforeend",
+    `<section>
+         <h1>${error}</h1>
+    </section>`
+  );
+};
+
+const fetchPictureData = async (url) => {
+  try {
+    const initialPictureData = await fetch(url, {
+      headers: {
+        Authorization:
+          "tCcD7GhjDDRcVKJG7QVLPq5K2dLWsIUgGnxYVSYY3GgU9xpCNvRUiuSw",
+      },
+    });
+    const pictureData = await initialPictureData.json();
+    displayPicture(pictureData);
+  } catch (error) {
+    catchError(error);
+  };
+};
+
 const fetchData = async (url) => {
   try {
     const initialData = await fetch(url);
     const data = await initialData.json();
-    makePage(data);
+    displayData(data);
   } catch (error) {
-    error = "There was an error";
-    rootElement.insertAdjacentHTML(
-      "beforeend",
-      `
-        <section>
-             <h1>${error}</h1>
-        </section>`
-    );
+    catchError(error);
   };
 };
