@@ -1,0 +1,189 @@
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  font-family: inherit;
+}
+ol,
+ul,
+li {
+  list-style: none;
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a img {
+  border: none;
+}
+
+input,
+textarea,
+select,
+button,
+input {
+  appearance: none;
+  border-radius: 0;
+}
+
+button,
+a {
+  cursor: pointer;
+  color: inherit;
+}
+textarea {
+  resize: none;
+}
+
+[readonly] + span,
+[readonly] {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  position: relative;
+  background-color: rgb(175, 230, 196);
+  background: -webkit-linear-gradient(
+    to right,
+    #d68952,
+    #659999
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #d68952,
+    #659999
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+form {
+  text-align: center;
+  margin: 2em;
+  padding: 1em;
+}
+
+input {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  width: 200px;
+  padding: 0.4em;
+  background-color: rgb(123, 219, 214);
+  border: 2px solid rgb(36, 33, 33);
+  border-radius: 5px;
+}
+
+#suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#suggestions div {
+  width: 200px;
+  cursor: pointer;
+  background-color: rgb(123, 219, 214);
+  font-size: inherit;
+  font-weight: 600;
+  padding: 0.1em;
+  border-bottom: 2px solid rgb(36, 33, 33);
+  border-left: 2px solid rgb(36, 33, 33);
+  border-right: 2px solid rgb(36, 33, 33);
+}
+
+section {
+  text-align: center;
+  background-color: rgba(123, 219, 214, 0.8);
+  margin: 2em 10em;
+  padding: 2em;
+  border-radius: 20px;
+}
+
+section p,
+#temp {
+  font-weight: 600;
+}
+
+#root {
+  margin-top: 6em;
+  width: 60vw;
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+}
+
+label {
+  font-weight: 700;
+  text-shadow: 1px 1px 10px rgb(123, 219, 214);
+}
+
+#fav_btn {
+  position: absolute;
+  top: 2.5em;
+}
+
+#fav_btn span {
+  font-weight: 600;
+}
+
+button {
+  font-size: 18px;
+  font-weight: 600;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(123, 219, 214);
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+button:hover,
+#suggestions div:hover {
+  background-color: rgb(206, 165, 112);
+}
+
+#spinner:not([hidden]) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid #f25a41;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
