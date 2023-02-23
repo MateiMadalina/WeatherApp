@@ -57,7 +57,7 @@ body {
   font-family: "Montserrat", sans-serif;
   font-size: 15px;
   position: relative;
-  background-color: rgb(175, 230, 196);
+  background-color: #659999;
   background: -webkit-linear-gradient(
     to right,
     #d68952,
@@ -71,9 +71,18 @@ body {
 }
 
 form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
   margin: 2em;
   padding: 1em;
+}
+
+#autofill {
+    position: relative;
+    width: 200px;
 }
 
 input {
@@ -88,6 +97,9 @@ input {
 }
 
 #suggestions {
+  position: absolute;
+  top: 2.3em;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,10 +112,15 @@ input {
   background-color: rgb(123, 219, 214);
   font-size: inherit;
   font-weight: 600;
-  padding: 0.1em;
+  padding: 0.2em;
   border-bottom: 2px solid rgb(36, 33, 33);
   border-left: 2px solid rgb(36, 33, 33);
   border-right: 2px solid rgb(36, 33, 33);
+}
+
+#suggestions div:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 section {

@@ -26,7 +26,7 @@ rootElement.insertAdjacentHTML(
   "afterbegin",
   `<form autocomplete="off">
         <label for="input">Pick a City:</label>
-        <div>            
+        <div id="autofill">            
             <input type="text" id="input">
         </div>
     </form>`
