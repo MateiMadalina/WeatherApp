@@ -76,7 +76,7 @@ form {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  margin: 2em;
+  margin: 5em 2em 2em 2em;
   padding: 1em;
 }
 
@@ -148,6 +148,7 @@ section p,
 label {
   font-weight: 700;
   text-shadow: 1px 1px 10px rgb(123, 219, 214);
+  margin-bottom: 0.4em;
 }
 
 #fav_btn {
