@@ -35,36 +35,45 @@ rootElement.insertAdjacentHTML(
 const inputElement = document.getElementById("input");
 const favoriteBtn = document.querySelector("button");
 
-let citiesAddedToFavorites = [];
+const citiesAddedToFavorites = [];
 let uniqueFavCities = [];
 
 const getUrls = (name) => {
-  let dataUrl = `http://api.weatherapi.com/v1/current.json?key=b54d788ad89546eeaf2133644232002&q=${name}&aqi=no`;
-  let pictureUrl = `https://api.pexels.com/v1/search?query=${name}`;
+  const dataUrl = `http://api.weatherapi.com/v1/current.json?key=b54d788ad89546eeaf2133644232002&q=${name}&aqi=no`;
+  const pictureUrl = `https://api.pexels.com/v1/search?query=${name}`;
   fetchData(dataUrl);
   fetchPictureData(pictureUrl);
 };
 
+const closeList = () => {
+  const suggestions = document.getElementById("suggestions");
+  const section = document.querySelector("section");
+  if (suggestions) {
+    suggestions.parentNode.removeChild(suggestions);
+    if (section) {
+      section.remove();
+      rootElement.style.backgroundImage = "none";
+    };
+  };
+};
+
+const createSuggestions = (input) => {
+  const suggestions = document.createElement("div");
+  suggestions.setAttribute("id", "suggestions");
+  input.parentNode.appendChild(suggestions);
+  return suggestions;
+};
+
+favoriteBtn.addEventListener("click", () => {
+  if(cities.includes(input.value)) citiesAddedToFavorites.push(input.value); 
+});
+
 const autocompleteAndDisplay = (input, list) => {
   input.addEventListener("input", () => {
-    const closeList = () => {
-      const suggestions = document.getElementById("suggestions");
-      const section = document.querySelector("section");
-      if (suggestions) {
-        suggestions.parentNode.removeChild(suggestions);
-        if (section) {
-          section.remove();
-          rootElement.style.backgroundImage = "none";
-        };
-      };
-    };
     //Close the existing list if it is open
     closeList();
 
-    //Create a suggestions <div> and add it to the element containing the input field
-    const suggestions = document.createElement("div");
-    suggestions.setAttribute("id", "suggestions");
-    input.parentNode.appendChild(suggestions);
+    const suggestions = createSuggestions(input);
 
     if (citiesAddedToFavorites && !input.value) {
       uniqueFavCities = [...new Set(citiesAddedToFavorites)];
@@ -95,10 +104,6 @@ const autocompleteAndDisplay = (input, list) => {
         suggestion.addEventListener("click", () => {
           input.value = suggestion.innerHTML;
           getUrls(input.value);
-
-          favoriteBtn.addEventListener("click", () => {
-            citiesAddedToFavorites.push(input.value);
-          });
 
           closeList();
         });
