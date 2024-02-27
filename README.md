@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Our project is a simple and efficient weather app. It offers quick city search with auto-suggestions and provides instant weather updates. Additionally, users can bookmark their favorite cities.
+The project is a simple and efficient weather app. It offers quick city search with auto-suggestions and provides instant weather updates. Additionally, users can bookmark their favorite cities.
 
 ## Running the code
 ```
